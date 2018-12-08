@@ -28,11 +28,13 @@ function [bestTeachingAssignments, minObjectiveFunction] = findTeachingAssignmen
     end
     
     for i = 1:size(professorInfo,1) %for each different starting professor
-        pointMatrix = objectiveFunctionEntries(numberClassSections, professorInfo);
-        [tempTeachingAssignments, tempObjectiveFunctionValue] = assigningProfessorsToSections(numberClassSections, pointMatrix, i, avaliableTeachers);
-        if(tempObjectiveFunctionValue < currentBestObjectiveFunctionValue)
-            currentBestObjectiveFunctionValue = tempObjectiveFunctionValue;
-            currentBestTeachingAssignments = tempTeachingAssignments;
+        for j = 1:size(numberClassSections,1)
+            pointMatrix = objectiveFunctionEntries(numberClassSections, professorInfo);
+            [tempTeachingAssignments, tempObjectiveFunctionValue] = assigningProfessorsToSections(numberClassSections, pointMatrix, i, j, avaliableTeachers);
+            if(tempObjectiveFunctionValue < currentBestObjectiveFunctionValue)
+                currentBestObjectiveFunctionValue = tempObjectiveFunctionValue;
+                currentBestTeachingAssignments = tempTeachingAssignments;
+            end
         end
     end
     
