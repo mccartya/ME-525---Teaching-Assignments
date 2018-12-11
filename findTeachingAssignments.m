@@ -6,7 +6,7 @@ function [bestTeachingAssignments, minObjectiveFunction] = findTeachingAssignmen
 
 % Description of Inputs:
 
-% numberClassSections - a two column matrix where the first matrix
+% numberClassSections - a two column matrix where the first column
 % lists each course code and adjoining cell in the second column is the
 % number of sections of the class
 
@@ -27,9 +27,11 @@ function [bestTeachingAssignments, minObjectiveFunction] = findTeachingAssignmen
         avaliableTeachers(i, 2) = professorInfo(i, 3);
     end
     
+    %Calculate point matrix with objective function entries
+    pointMatrix = objectiveFunctionEntries(numberClassSections, professorInfo);
+
     for i = 1:size(professorInfo,1) %for each different starting professor
         for j = 1:size(numberClassSections,1)
-            pointMatrix = objectiveFunctionEntries(numberClassSections, professorInfo);
             [tempTeachingAssignments, tempObjectiveFunctionValue] = assigningProfessorsToSections(numberClassSections, pointMatrix, i, j, avaliableTeachers);
             if(tempObjectiveFunctionValue < currentBestObjectiveFunctionValue)
                 currentBestObjectiveFunctionValue = tempObjectiveFunctionValue;
